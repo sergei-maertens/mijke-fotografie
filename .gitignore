@@ -1,0 +1,19 @@
+# Developers
+.hg
+.git
+.svn
+.idea/
+.sass-cache/
+*.db
+*.pyc
+*~
+
+# Frontend libraries
+/src/*/static/*/lib/
+
+# Environment
+settings_local.py
+/env/
+/media/
+/static/
+
