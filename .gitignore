@@ -10,6 +10,8 @@
 
 # Frontend libraries
 /src/*/static/*/lib/
+/src/*/static/*/css/
+!/src/*/static/*/css/admin_overrides.css
 
 # Environment
 settings_local.py
