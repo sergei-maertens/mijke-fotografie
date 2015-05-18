@@ -16,6 +16,7 @@ framework.
 import os
 import site
 import sys
+from pathlib import Path
 
 
 def setupenv():
@@ -24,19 +25,16 @@ def setupenv():
     prev_sys_path = list(sys.path)
 
     # we add currently directory to path and change to it
-    mydir = os.path.dirname(os.path.abspath(__file__))
+    mydir = Path(__file__).parent
+    env = Path(os.getenv('VIRTUAL_ENV', None)) or mydir.parent.parent.parent / 'env'
 
-    pwd = os.getenv('VIRTUAL_ENV', None)
-    if pwd is None:
-        pwd = os.path.join(mydir, os.path.join('..', '..', '..', 'env'))
-
-    sys.path = [pwd, os.path.join(mydir, '..', '..')] + sys.path
+    sys.path = [str(env), str(mydir.parent.parent)] + sys.path
 
     # find the site-packages within the local virtualenv
-    for python_dir in os.listdir(os.path.join('env', 'lib')):
-        site_packages_dir = os.path.join('env', 'lib', python_dir, 'site-packages')
+    for python_dir in [d for d in (env / 'lib').iterdir() if d.is_dir()]:
+        site_packages_dir = str(python_dir / 'site-packages')
         if os.path.exists(site_packages_dir):
-            site.addsitedir(os.path.abspath(site_packages_dir))
+            site.addsitedir(site_packages_dir)
 
     # Reorder sys.path so new directories at the front.
     new_sys_path = []

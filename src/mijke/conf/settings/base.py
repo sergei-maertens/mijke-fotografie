@@ -90,7 +90,6 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
     'cms.context_processors.cms_settings',
-    'cms.context_processors.media',
     'mijke.utils.context_processors.settings',
 )
 
