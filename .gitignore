@@ -22,3 +22,5 @@ settings/local.py
 /media/
 /static/
 
+# Log files
+log/

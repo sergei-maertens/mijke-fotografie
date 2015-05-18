@@ -14,6 +14,7 @@ ROOT_DIR = DJANGO_PROJECT_DIR.parent.parent
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+SITE_ID = 1
 PROJECT_NAME = 'mijke'
 
 ADMINS = (
@@ -40,6 +41,13 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+gettext = lambda x: x  # noqa
+
+LANGUAGES = (
+    ('nl', gettext('Dutch')),
+)
+LANGUAGE_CODE = 'nl'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -80,6 +88,9 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'sekizai.context_processors.sekizai',
+    'cms.context_processors.cms_settings',
+    'cms.context_processors.media',
     'mijke.utils.context_processors.settings',
 )
 
@@ -96,6 +107,10 @@ MIDDLEWARE_CLASSES = [
     # External middleware.
     'maintenancemode.middleware.MaintenanceModeMiddleware',
     'axes.middleware.FailedLoginMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
 ]
 
 ROOT_URLCONF = 'mijke.urls'
@@ -136,6 +151,17 @@ INSTALLED_APPS = [
     # External applications.
     'axes',
     'compressor',
+
+    # CMS
+    'treebeard',
+    'cms',
+    'menus',
+    'sekizai',
+    'filer',
+    'easy_thumbnails',
+    'djangocms_text_ckeditor',
+    'cmsplugin_filer_image',
+    'cmsplugin_filer_link',
 
     # Project applications.
 ]
@@ -253,3 +279,34 @@ AXES_LOGIN_FAILURE_LIMIT = 3  # Default: 3
 AXES_LOCK_OUT_AT_FAILURE = True  # Default: True
 AXES_USE_USER_AGENT = False  # Default: False
 AXES_COOLOFF_TIME = 1  # One hour
+
+
+#
+# DJANGO CMS
+#
+CMS_TEMPLATES = (
+    ('cms/default.html', gettext('Default')),
+)
+CMS_PLACEHOLDER_CONF = {}
+
+TEXT_SAVE_IMAGE_FUNCTION = 'cmsplugin_filer_image.integrations.ckeditor.create_image_plugin'
+
+#
+# EASY THUMBNAILS
+#
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)
+
+MIGRATION_MODULES = {
+    'filer': 'filer.migrations_django',
+    'cmsplugin_filer_file': 'cmsplugin_filer_file.migrations_django',
+    'cmsplugin_filer_folder': 'cmsplugin_filer_folder.migrations_django',
+    'cmsplugin_filer_link': 'cmsplugin_filer_link.migrations_django',
+    'cmsplugin_filer_image': 'cmsplugin_filer_image.migrations_django',
+    'cmsplugin_filer_teaser': 'cmsplugin_filer_teaser.migrations_django',
+    'cmsplugin_filer_video': 'cmsplugin_filer_video.migrations_django',
+}
