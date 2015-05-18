@@ -1,4 +1,4 @@
-from .settings import *
+from .base import *
 
 #
 # Standard Django settings.
@@ -6,7 +6,7 @@ from .settings import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-WSGI_APPLICATION = 'mijke_fotografie.wsgi.wsgi_development.application'
+WSGI_APPLICATION = 'mijke.wsgi.wsgi_development.application'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ENVIRONMENT = 'development'
 
@@ -17,13 +17,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'mijke_fotografie.db'),
-        # The following settings are not used with sqlite3:
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
     }
 }
 
@@ -32,7 +29,7 @@ DATABASES = {
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 LOGGING['loggers'].update({
-    'mijke_fotografie': {
+    'mijke': {
         'handlers': ['console'],
         'level': 'DEBUG',
         'propagate': True,
@@ -71,17 +68,17 @@ DEBUG_TOOLBAR_CONFIG = {
 #
 # Skip migrations in Django 1.7
 #
-def prevent_tests_migrate(db):
-    import django
-    from django.db import connections
-    from django.db.migrations.executor import MigrationExecutor
-    django.setup()
-    ma = MigrationExecutor(connections[db]).loader.migrated_apps
-    return dict(zip(ma, ['{a}.notmigrations'.format(a=a) for a in ma]))
-MIGRATION_MODULES = prevent_tests_migrate('default')
+# def prevent_tests_migrate(db):
+#     import django
+#     from django.db import connections
+#     from django.db.migrations.executor import MigrationExecutor
+#     django.setup()
+#     ma = MigrationExecutor(connections[db]).loader.migrated_apps
+#     return dict(zip(ma, ['{a}.notmigrations'.format(a=a) for a in ma]))
+# MIGRATION_MODULES = prevent_tests_migrate('default')
 
 # Override settings with local settings.
 try:
-    from settings_local import *
+    from .local import *
 except ImportError:
     pass

@@ -1,6 +1,6 @@
 {
-  "name": "mijke_fotografie",
-  "description": "Django Mijke_fotografie project",
+  "name": "mijke",
+  "description": "Django Mijke Fotografie project",
   "version": "0.0.0",
   "private": true,
   "ignore": [
@@ -9,9 +9,9 @@
     "src/"
   ],
   "dependencies": {
-    "bootstrap": "~3.1.1",
-    "jquery": "1.11.0",
+    "bootstrap": "~3.3.4",
+    "jquery": "2.1.4",
     "jquery-metisMenu": "git://github.com/onokumus/metisMenu.git#e4688b7560650159076b272a94b720638c121929",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.3.0"
   }
 }

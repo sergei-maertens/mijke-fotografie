@@ -2,10 +2,10 @@
 
 # Set this to the root of your project when deployed:
 http_path = "/static/"
-css_dir = "src/mijke_fotografie/static/mijke_fotografie/css"
-sass_dir = "src/mijke_fotografie/sass"
-images_dir = "src/mijke_fotografie/static/mijke_fotografie/img"
-javascripts_dir = "src/mijke_fotografie/static/mijke_fotografie/js"
+css_dir = "src/mijke/static/mijke/css"
+sass_dir = "src/mijke/sass"
+images_dir = "src/mijke/static/mijke/img"
+javascripts_dir = "src/mijke/static/mijke/js"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

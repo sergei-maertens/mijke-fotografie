@@ -11,7 +11,7 @@ or keep in a different location (like the virtual environment)::
     |
     +-- src                 -- Container for one or more source directories.
     |   |
-    |   +-- mijke_fotografie
+    |   +-- mijke
     |       |
     |       +-- conf        -- Django settings files.
     |       |
@@ -97,7 +97,7 @@ Staging and production
 Configure your webserver and/or WSGI handler. See:
 https://docs.djangoproject.com/en/dev/howto/deployment/
 
-Note that your wsgi script in ``src/mijke_fotografie/wsgi.py already
+Note that your wsgi script in ``src/mijke/wsgi.py already
 points to your staging|production settings.py file. This happens when
 bootstrapping your environment.
 

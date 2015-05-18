@@ -1,10 +1,11 @@
-import os
+from pathlib import Path
 
 import django.conf.global_settings as DEFAULT_SETTINGS
 
 # Automatically figure out the ROOT_DIR and PROJECT_DIR.
-DJANGO_PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
-ROOT_DIR = os.path.abspath(os.path.join(DJANGO_PROJECT_DIR, os.path.pardir, os.path.pardir))
+path = Path(__file__)
+DJANGO_PROJECT_DIR = path.parent.parent.parent
+ROOT_DIR = DJANGO_PROJECT_DIR.parent.parent
 
 #
 # Standard Django settings.
@@ -13,14 +14,14 @@ ROOT_DIR = os.path.abspath(os.path.join(DJANGO_PROJECT_DIR, os.path.pardir, os.p
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-PROJECT_NAME = 'mijke_fotografie'
+PROJECT_NAME = 'mijke'
 
 ADMINS = (
-    ('Admin', 'mijke_fotografie@example.com'),
+    ('Admin', 'sergeimaertens@xbbtx.be'),
 )
 MANAGERS = ADMINS
 
-DEFAULT_FROM_EMAIL = 'mijke_fotografie@example.com'
+DEFAULT_FROM_EMAIL = 'noreply@xbbtx.be'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # https://docs.djangoproject.com/en/1.7/ref/settings/#allowed-hosts
@@ -28,10 +29,10 @@ ALLOWED_HOSTS = []
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-TIME_ZONE = 'Europe/Amsterdam'
+TIME_ZONE = 'Europe/Brussels'
 
 LOCALE_PATHS = (
-    os.path.join(DJANGO_PROJECT_DIR, 'conf', 'locale'),
+    str(DJANGO_PROJECT_DIR / 'conf' / 'locale'),
 )
 
 USE_I18N = True
@@ -42,7 +43,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+STATIC_ROOT = str(ROOT_DIR / 'static')
 
 STATIC_URL = '/static/'
 
@@ -51,7 +52,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(DJANGO_PROJECT_DIR, 'static'),
+    str(DJANGO_PROJECT_DIR / 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -63,7 +64,7 @@ STATICFILES_FINDERS = [
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 ]
 
-MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+MEDIA_ROOT = str(ROOT_DIR / 'media')
 
 MEDIA_URL = '/media/'
 
@@ -79,7 +80,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
-    'mijke_fotografie.utils.context_processors.settings',
+    'mijke.utils.context_processors.settings',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -97,20 +98,20 @@ MIDDLEWARE_CLASSES = [
     'axes.middleware.FailedLoginMiddleware',
 ]
 
-ROOT_URLCONF = 'mijke_fotografie.urls'
+ROOT_URLCONF = 'mijke.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'mijke_fotografie.wsgi.application'
+WSGI_APPLICATION = 'mijke.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(DJANGO_PROJECT_DIR, 'templates'),
+    str(DJANGO_PROJECT_DIR / 'templates'),
 )
 
 FIXTURE_DIRS = (
-    os.path.join(DJANGO_PROJECT_DIR, 'fixtures'),
+    str(DJANGO_PROJECT_DIR / 'fixtures'),
 )
 
 INSTALLED_APPS = [
@@ -125,8 +126,6 @@ INSTALLED_APPS = [
 
     # Optional applications.
     'django.contrib.admin',
-    #'django.contrib.humanize',
-    #'django.contrib.sitemaps',
 
     # django-admin-tools
     'admin_tools',
@@ -141,7 +140,7 @@ INSTALLED_APPS = [
     # Project applications.
 ]
 
-LOGGING_DIR = os.path.join(ROOT_DIR, 'log')
+LOGGING_DIR = ROOT_DIR / 'log'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -188,7 +187,7 @@ LOGGING = {
         'django': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'django.log'),
+            'filename': str(LOGGING_DIR / 'django.log'),
             'formatter': 'verbose',
             'maxBytes': 1024*1024*10,  # 10 MB
             'backupCount': 10
@@ -196,7 +195,7 @@ LOGGING = {
         'project': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'mijke_fotografie.log'),
+            'filename': str(LOGGING_DIR / 'mijke.log'),
             'formatter': 'verbose',
             'maxBytes': 1024*1024*10,  # 10 MB
             'backupCount': 10
@@ -204,14 +203,14 @@ LOGGING = {
         'performance': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOGGING_DIR, 'performance.log'),
+            'filename': str(LOGGING_DIR / 'performance.log'),
             'formatter': 'performance',
             'maxBytes': 1024*1024*10,  # 10 MB
             'backupCount': 10
         },
     },
     'loggers': {
-        'mijke_fotografie': {
+        'mijke': {
             'handlers': ['project'],
             'level': 'INFO',
             'propagate': True,
