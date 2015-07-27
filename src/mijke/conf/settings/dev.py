@@ -5,7 +5,8 @@ from .base import *
 #
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = True
+
 WSGI_APPLICATION = 'mijke.wsgi.wsgi_development.application'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ENVIRONMENT = 'development'
@@ -18,9 +19,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME': 'mijke',
+        'USER': 'mijke',
+        'PASSWORD': 'mijke',
     }
 }
 

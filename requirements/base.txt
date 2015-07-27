@@ -9,15 +9,6 @@ django-admin-tools
 django-sniplates
 django-autoslug
 django-rosetta
+django-systemjs
 
-easy-thumbnails
-django-hvad
-django-cms
-{# djangocms-text-ckeditor==2.5 #}
-git+https://github.com/divio/djangocms-text-ckeditor.git
-django-filer
-cmsplugin-filer
-djangocms-link
-
-
-git+git://github.com/maykinmedia/django-maintenancemode.git
+wagtail

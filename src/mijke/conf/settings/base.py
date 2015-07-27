@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import django.conf.global_settings as DEFAULT_SETTINGS
+from django.contrib.messages import constants as message_constants
 
 # Automatically figure out the ROOT_DIR and PROJECT_DIR.
 path = Path(__file__)
@@ -12,7 +13,6 @@ ROOT_DIR = DJANGO_PROJECT_DIR.parent.parent
 #
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
 PROJECT_NAME = 'mijke'
@@ -79,24 +79,27 @@ MEDIA_URL = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'jl+pq@4%ds89h8hihx4-&1^b-d!wvx*@l-7fj0b48bkq2*d3di'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
-)
 
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
-    'django.core.context_processors.request',
-    'sekizai.context_processors.sekizai',
-    'cms.context_processors.cms_settings',
-    'mijke.utils.context_processors.settings',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [
+            str(DJANGO_PROJECT_DIR / 'templates'),
+        ],
+        'OPTIONS': {
+            'context_processors': DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+                'django.template.context_processors.request',
+                'mijke.utils.context_processors.settings',
+            )
+        }
+    },
+]
 
 MIDDLEWARE_CLASSES = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
     # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -104,29 +107,17 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # External middleware.
-    'maintenancemode.middleware.MaintenanceModeMiddleware',
     'axes.middleware.FailedLoginMiddleware',
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware',
+
+    # CMS
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'mijke.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'mijke.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    str(DJANGO_PROJECT_DIR / 'templates'),
-)
-
-FIXTURE_DIRS = (
-    str(DJANGO_PROJECT_DIR / 'fixtures'),
-)
 
 INSTALLED_APPS = [
 
@@ -152,15 +143,20 @@ INSTALLED_APPS = [
     'compressor',
 
     # CMS
-    'treebeard',
-    'cms',
-    'menus',
-    'sekizai',
-    'filer',
-    'easy_thumbnails',
-    'djangocms_text_ckeditor',
-    'cmsplugin_filer_image',
-    'cmsplugin_filer_link',
+    'taggit',
+    'modelcluster',
+
+    'wagtail.wagtailcore',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailforms',
 
     # Project applications.
 ]
@@ -258,7 +254,6 @@ LOGGING = {
 # CSRF_COOKIE_SECURE = True
 # X_FRAME_OPTIONS = 'DENY'
 
-from django.contrib.messages import constants as message_constants
 MESSAGE_TAGS = {
     message_constants.DEBUG: 'debug',
     message_constants.INFO: 'info',
@@ -281,31 +276,6 @@ AXES_COOLOFF_TIME = 1  # One hour
 
 
 #
-# DJANGO CMS
+# Wagtail
 #
-CMS_TEMPLATES = (
-    ('cms/default.html', gettext('Default')),
-)
-CMS_PLACEHOLDER_CONF = {}
-
-TEXT_SAVE_IMAGE_FUNCTION = 'cmsplugin_filer_image.integrations.ckeditor.create_image_plugin'
-
-#
-# EASY THUMBNAILS
-#
-THUMBNAIL_PROCESSORS = (
-    'easy_thumbnails.processors.colorspace',
-    'easy_thumbnails.processors.autocrop',
-    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
-    'easy_thumbnails.processors.filters',
-)
-
-MIGRATION_MODULES = {
-    'filer': 'filer.migrations_django',
-    'cmsplugin_filer_file': 'cmsplugin_filer_file.migrations_django',
-    'cmsplugin_filer_folder': 'cmsplugin_filer_folder.migrations_django',
-    'cmsplugin_filer_link': 'cmsplugin_filer_link.migrations_django',
-    'cmsplugin_filer_image': 'cmsplugin_filer_image.migrations_django',
-    'cmsplugin_filer_teaser': 'cmsplugin_filer_teaser.migrations_django',
-    'cmsplugin_filer_video': 'cmsplugin_filer_video.migrations_django',
-}
+WAGTAIL_SITE_NAME = 'Mijke Fotografie'
