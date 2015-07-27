@@ -15,8 +15,10 @@ secrets.py
 /src/*/static/*/lib/
 /src/*/static/*/css/
 !/src/*/static/*/css/admin_overrides.css
+node_modules
 npm-debug.log
 src/*/static/jspm_packages/
+src/*/static/bower_components/
 
 # Environment
 settings/local.py

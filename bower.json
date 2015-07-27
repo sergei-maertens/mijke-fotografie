@@ -10,5 +10,9 @@
   ],
   "dependencies": {
     "font-awesome": "~4.3.0"
+  },
+  "devDependencies": {
+    "neat": "~1.7.2",
+    "bourbon": "~4.2.3"
   }
 }
