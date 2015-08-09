@@ -141,6 +141,7 @@ INSTALLED_APPS = [
     # External applications.
     'axes',
     'compressor',
+    'sniplates',
 
     # CMS
     'taggit',
@@ -159,6 +160,7 @@ INSTALLED_APPS = [
     'wagtail.wagtailforms',
 
     # Project applications.
+    'mijke.albums',
 ]
 
 LOGGING_DIR = ROOT_DIR / 'log'
