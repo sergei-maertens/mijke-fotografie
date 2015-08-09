@@ -1,0 +1,13 @@
+{% load sniplates  %}
+
+{% block menu %}
+{% with request.site.root_page as root %}
+<nav><ul role="menu">
+{% for page in root.get_children.live.in_menu %}
+    <li>
+        <a href="{{ page.url }}">{{ page.title }}</a>
+    </li>
+{% endfor %}
+</ul></nav>
+{% endwith %}
+{% endblock %}

@@ -132,12 +132,6 @@ INSTALLED_APPS = [
     # Optional applications.
     'django.contrib.admin',
 
-    # django-admin-tools
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
-
     # External applications.
     'axes',
     'compressor',

@@ -25,18 +25,14 @@
     </head>
     <body class="{% block body-class %}{% endblock %}">
 
-        <nav>
-            {# TODO: menu #}
-        </nav>
+        {% load_widgets cms='cms.html' %}
+        {% widget 'cms:menu' %}
 
         <main class="container">
         {% block content %}
         Main content
         {% endblock %}
         </main>
-
-        {# TODO: content #}
-
 
         {% compress js %}
             {% load_widgets systemjs='systemjs.html' %}
