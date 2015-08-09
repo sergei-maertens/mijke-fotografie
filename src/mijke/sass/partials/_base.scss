@@ -1,0 +1,20 @@
+body {
+    background-color: $base-background-color;
+}
+
+.page-wrapper {
+
+    @include outer-container;
+
+}
+
+ul[role="menu"] {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(space-between);
+
+    > li {
+        @include flex(1);
+        text-align: center;
+    }
+}

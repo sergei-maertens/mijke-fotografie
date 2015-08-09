@@ -9,7 +9,8 @@
     "src/"
   ],
   "dependencies": {
-    "font-awesome": "~4.3.0"
+    "font-awesome": "~4.3.0",
+    "normalize.css": "~3.0.3"
   },
   "devDependencies": {
     "neat": "~1.7.2",

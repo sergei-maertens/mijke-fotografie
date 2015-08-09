@@ -61,6 +61,9 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     str(DJANGO_PROJECT_DIR / 'static'),
+    str(DJANGO_PROJECT_DIR / 'sass'),
+    str(DJANGO_PROJECT_DIR / 'static' / 'bower_components' / 'bourbon' / 'app' / 'assets' / 'stylesheets'),
+    str(DJANGO_PROJECT_DIR / 'static' / 'bower_components' / 'neat' / 'app' / 'assets' / 'stylesheets'),
 )
 
 # List of finder classes that know how to find static files in
@@ -275,3 +278,10 @@ AXES_COOLOFF_TIME = 1  # One hour
 # Wagtail
 #
 WAGTAIL_SITE_NAME = 'Mijke Fotografie'
+
+#
+# Compressor
+#
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
