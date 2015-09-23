@@ -1,0 +1,11 @@
+ul[role="menu"] {
+  @include display(flex);
+  @include justify-content(space-between);
+
+  > li {
+    @include flex(1);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
