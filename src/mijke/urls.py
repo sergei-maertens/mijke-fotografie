@@ -14,7 +14,6 @@ from wagtail.wagtailsearch import urls as wagtailsearch_urls
 urlpatterns = patterns(
     '',
     url(r'^django-admin/', include(admin.site.urls)),
-    url(r'^admin_tools/', include('admin_tools.urls')),
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^search/', include(wagtailsearch_urls)),

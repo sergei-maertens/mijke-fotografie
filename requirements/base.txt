@@ -6,7 +6,6 @@ raven
 libsass
 
 django-choices
-django-admin-tools
 django-sniplates
 django-autoslug
 django-rosetta

@@ -138,6 +138,7 @@ INSTALLED_APPS = [
     # External applications.
     'axes',
     'compressor',
+    'rest_framework',
     'sniplates',
 
     # CMS
@@ -268,7 +269,7 @@ SHOW_ALERT = True
 #
 # Django-axes
 #
-AXES_LOGIN_FAILURE_LIMIT = 3  # Default: 3
+AXES_LOGIN_FAILURE_LIMIT = 30  # Default: 3
 AXES_LOCK_OUT_AT_FAILURE = True  # Default: True
 AXES_USE_USER_AGENT = False  # Default: False
 AXES_COOLOFF_TIME = 1  # One hour
