@@ -26,25 +26,17 @@
     </head>
     <body class="{% block body-class %}{% endblock %}">
 
-        <div class="page-wrapper">
-            {% load_widgets cms='cms.html' %}
-            <header>
-                <div class="branding">
-                    Mijke@Fotografie
-                </div>
-                {% widget 'cms:menu' %}
-            </header>
+        {% load_widgets cms='cms.html' %}
+        <header>
+            <div class="branding"> Mijke@Fotografie </div>
+            {% widget 'cms:menu' %}
+        </header>
 
-            <main class="container">
-            {% block content %}
-            Main content
-            {% endblock %}
-            </main>
-        </div>
+        <main>
+            {% block content %} Main content {% endblock %}
+        </main>
 
-        {% compress js %}
-        {% endcompress %}
-
+        {% compress js %}{% endcompress %}
         {% block extra_js %}{% endblock %}
     </body>
 </html>

@@ -1,21 +1,16 @@
-.page-wrapper {
-
+body > header {
   @include outer-container;
+  border-bottom: solid 1px $dark-gray;
+  display: flex;
+  align-items: center;
 
-  header {
-    @include row;
-    border-bottom: solid 1px $dark-gray;
-    display: flex;
-    align-items: center;
+  .branding {
+    @include span-columns(3);
+    @extend h1;
+    margin-bottom: $small-spacing / 2;
+  }
 
-    .branding {
-      @include span-columns(3);
-      @extend h1;
-      margin-bottom: $small-spacing / 2;
-    }
-
-    nav {
-      @include span-columns(9);
-    }
+  nav {
+    @include span-columns(9);
   }
 }

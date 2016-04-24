@@ -1,11 +1,9 @@
 // Bourbon bootstrap
 @import "bourbon";
+// base styles - variables
+@import "bitters/base";
 @import "neat";
 
-// base styles
-@import "bitters/base";
-
 // own styles
-@import "partials/base";
-@import "partials/headers";
-@import "partials/menu";
+@import "partials/all";
+@import "page_types/all";
