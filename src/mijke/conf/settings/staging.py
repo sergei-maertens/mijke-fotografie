@@ -1,36 +1,34 @@
+import os
 from .base import *
 
 #
 # Standard Django settings.
 #
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-WSGI_APPLICATION = 'mijke.wsgi.wsgi_staging.application'
+DEBUG = False
+WSGI_APPLICATION = 'mijke.wsgi.wsgi.application'
 ENVIRONMENT = 'staging'
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Sergei Maertens', 'info@regex-it.nl'),
 )
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': 'localhost',
     }
 }
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-from .secrets import *  # noqa
-# SECRET_KEY = ''
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'mijke.regex-it.nl',
+]
 
 LOGGING['loggers'].update({
     'django': {
@@ -39,8 +37,3 @@ LOGGING['loggers'].update({
         'propagate': True,
     },
 })
-
-#
-# django-maintenancemode
-#
-MAINTENANCE_MODE = False
