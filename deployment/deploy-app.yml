@@ -2,7 +2,7 @@
 
 - name: Update the application to the latest version
   hosts: "{{ target|default('staging') }}"
-  remote_user: sourcething
+  remote_user: mijke
   roles:
     - env
     - npm
