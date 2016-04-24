@@ -11,17 +11,17 @@
 
         {{ self.body }}
     </div>
-</article>
 
-<aside class="page-links">
-    <nav>
-        <ul role="menu">
-            {% for link in self.links.all %}
-                <li>
-                    <a href="{{ link.target_page.get_absolute_url }}">{% firstof link.title link.page.title %}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </nav>
-</aside>
+    <aside class="page-links">
+        <nav>
+            <ul role="menu">
+                {% for link in self.links.all %}
+                    <li>
+                        <a href="{{ link.target_page.url }}">{% firstof link.title link.target_page.title %}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </aside>
+</article>
 {% endblock content %}

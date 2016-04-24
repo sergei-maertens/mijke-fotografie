@@ -8,6 +8,7 @@ body.overview {
   article {
 
     position: relative;
+    margin-bottom: 25px;
 
     &[style] {
       background-repeat: no-repeat;
@@ -18,6 +19,11 @@ body.overview {
     > .gradient {
       @include pad(default);
 
+      > * {
+        @include span-columns(9);
+        @include omega;
+      }
+
       position: absolute;
       top: 0;
       left: 0;
@@ -26,6 +32,33 @@ body.overview {
       background: rgba(0, 0, 0, .25);
       // display: inline-block;
       // background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.05));
+    }
+  }
+
+  .page-links {
+    position: absolute;
+    top: $gutter;
+    right: 0;
+
+    @include span-columns(3);
+
+    ul[role="menu"] {
+      display: block;
+
+      li {
+        // background: $base-background-color
+        background: white;
+        margin-bottom: $gutter;
+        box-shadow: 0 1px 5px rgba($base-background-color, .25),
+                    0 0px 3px rgba($base-background-color, .25);
+
+        a {
+          @include pad(10px 20px);
+          text-align: left;
+          display: block;
+          color: $dark-gray;
+        }
+      }
     }
   }
 }
