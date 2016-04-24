@@ -1,4 +1,4 @@
 ---
 
 - name: Compile sass to css
-  shell: gulp sass
+  shell: gulp sass chdir={{ project_home }}
