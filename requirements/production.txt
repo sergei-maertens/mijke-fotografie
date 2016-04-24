@@ -33,5 +33,6 @@ rjsmin==1.0.12            # via django-compressor
 semantic-version==2.5.0   # via django-systemjs
 six==1.10.0               # via django-choices, django-rosetta, html5lib, microsofttranslator
 Unidecode==0.4.19         # via wagtail
+uwsgi==2.0.12
 wagtail==1.4.3
 Willow==0.3               # via wagtail
