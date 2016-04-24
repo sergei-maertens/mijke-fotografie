@@ -1,0 +1,13 @@
+Django
+Pillow
+django_compressor
+django-axes
+raven
+
+django-choices
+django-sniplates
+django-autoslug
+django-rosetta
+django-systemjs
+
+wagtail
