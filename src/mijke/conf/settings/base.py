@@ -2,6 +2,7 @@ from pathlib import Path
 
 import django.conf.global_settings as DEFAULT_SETTINGS
 from django.contrib.messages import constants as message_constants
+from django.utils.translation import ugettext_lazy as _
 
 # Automatically figure out the ROOT_DIR and PROJECT_DIR.
 path = Path(__file__)
@@ -42,10 +43,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-gettext = lambda x: x  # noqa
-
 LANGUAGES = (
-    ('nl', gettext('Dutch')),
+    ('nl', _('Dutch')),
 )
 LANGUAGE_CODE = 'nl'
 
@@ -57,13 +56,8 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     str(DJANGO_PROJECT_DIR / 'static'),
-    str(DJANGO_PROJECT_DIR / 'sass'),
-    str(DJANGO_PROJECT_DIR / 'static' / 'bower_components' / 'bourbon' / 'app' / 'assets' / 'stylesheets'),
-    str(DJANGO_PROJECT_DIR / 'static' / 'bower_components' / 'neat' / 'app' / 'assets' / 'stylesheets'),
+    str(DJANGO_PROJECT_DIR / 'node_modules' / 'normalize.css'),
 )
 
 # List of finder classes that know how to find static files in
@@ -218,7 +212,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': str(LOGGING_DIR / 'mijke.log'),
             'formatter': 'verbose',
-            'maxBytes': 1024*1024*10,  # 10 MB
+            'maxBytes': 1024 * 1024 * 10,  # 10 MB
             'backupCount': 10
         },
         'performance': {
@@ -226,7 +220,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': str(LOGGING_DIR / 'performance.log'),
             'formatter': 'performance',
-            'maxBytes': 1024*1024*10,  # 10 MB
+            'maxBytes': 1024 * 1024 * 10,  # 10 MB
             'backupCount': 10
         },
     },
@@ -283,6 +277,4 @@ WAGTAIL_SITE_NAME = 'Mijke Fotografie'
 #
 # Compressor
 #
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
+COMPRESS_PRECOMPILERS = ()

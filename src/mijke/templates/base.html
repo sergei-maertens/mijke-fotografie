@@ -8,8 +8,8 @@
         <meta name="author" content="">
 
         {% compress css %}
-            <link href="{% static 'bower_components/normalize.css/normalize.css' %}" media="screen, projection" rel="stylesheet">
-            <link href="{% static 'screen.scss' %}" media="screen, projection" rel="stylesheet" type="text/x-scss">
+            <link href="{% static 'normalize.css' %}" media="screen, projection" rel="stylesheet">
+            <link href="{% static 'mijke/css/screen.css' %}" media="screen, projection" rel="stylesheet">
         {% endcompress %}
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -42,10 +42,7 @@
             </main>
         </div>
 
-        {% load_widgets systemjs='systemjs.html' %}
-        {% widget 'systemjs:base' %}
         {% compress js %}
-            {% widget 'systemjs:config' %}
         {% endcompress %}
 
         {% block extra_js %}{% endblock %}

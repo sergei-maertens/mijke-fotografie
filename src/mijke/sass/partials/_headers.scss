@@ -5,8 +5,8 @@
   header {
     @include row;
     border-bottom: solid 1px $dark-gray;
-    @include display(flex);
-    @include align-items(center);
+    display: flex;
+    align-items: center;
 
     .branding {
       @include span-columns(3);
