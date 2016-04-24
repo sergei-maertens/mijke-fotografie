@@ -18,9 +18,9 @@ DEBUG = False
 SITE_ID = 1
 PROJECT_NAME = 'mijke'
 
-ADMINS = (
+ADMINS = [
     ('Admin', 'sergeimaertens@xbbtx.be'),
-)
+]
 MANAGERS = ADMINS
 
 DEFAULT_FROM_EMAIL = 'noreply@xbbtx.be'
@@ -33,9 +33,9 @@ ALLOWED_HOSTS = []
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 TIME_ZONE = 'Europe/Brussels'
 
-LOCALE_PATHS = (
+LOCALE_PATHS = [
     str(DJANGO_PROJECT_DIR / 'conf' / 'locale'),
-)
+]
 
 USE_I18N = True
 
@@ -43,9 +43,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-LANGUAGES = (
+LANGUAGES = [
     ('nl', _('Dutch')),
-)
+]
 LANGUAGE_CODE = 'nl'
 
 # Static files (CSS, JavaScript, Images)
@@ -55,10 +55,10 @@ STATIC_ROOT = str(ROOT_DIR / 'static')
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     str(DJANGO_PROJECT_DIR / 'static'),
-    str(DJANGO_PROJECT_DIR / 'node_modules' / 'normalize.css'),
-)
+    str(ROOT_DIR / 'node_modules' / 'normalize.css'),
+]
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -85,10 +85,10 @@ TEMPLATES = [
             str(DJANGO_PROJECT_DIR / 'templates'),
         ],
         'OPTIONS': {
-            'context_processors': DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+            'context_processors': DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + [
                 'django.template.context_processors.request',
                 'mijke.utils.context_processors.settings',
-            )
+            ]
         }
     },
 ]
@@ -192,7 +192,7 @@ LOGGING = {
         },
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'console': {
             'level': 'DEBUG',
@@ -204,7 +204,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': str(LOGGING_DIR / 'django.log'),
             'formatter': 'verbose',
-            'maxBytes': 1024*1024*10,  # 10 MB
+            'maxBytes': 1024 * 1024 * 10,  # 10 MB
             'backupCount': 10
         },
         'project': {
