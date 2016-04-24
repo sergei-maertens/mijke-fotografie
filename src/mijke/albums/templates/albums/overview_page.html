@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block body-class %}{{ block.super }} overview{% endblock body-class %}
+
+
+{% block content %}
+<h1>{{ self.title }}</h1>
+
+<section>
+
+    <article {% if self.cover %}style="background-image: url('{{ self.cover.file.url }}');"{% endif %}>
+
+        {{ self.body }}
+
+    </article>
+
+    <aside class="page-links">
+        <nav>
+            <ul role="menu">
+                {% for link in self.links.all %}
+                    <li>
+                        <a href="{{ link.target_page.get_absolute_url }}">{% firstof link.title link.page.title %}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </aside>
+</section>
+{% endblock content %}
