@@ -1,0 +1,19 @@
+---
+
+- name: Create the nginx vhost
+  template: src=vhost.j2
+            dest=/etc/nginx/sites-available/{{ prefix }}.conf
+            owner={{ application_user }}
+            group={{ application_user }}
+            mode=0644
+  remote_user: root
+  notify: reload nginx
+
+- name: Enable the virtual host
+  file: src=/etc/nginx/sites-available/{{ prefix }}.conf
+        dest=/etc/nginx/sites-enabled/{{ prefix }}.conf
+        owner={{ application_user }}
+        group={{ application_user }}
+        state=link
+  remote_user: root
+  notify: reload nginx

@@ -1,0 +1,9 @@
+---
+
+- name: Create the basic auth password file
+  lineinfile:
+    dest={{ basic_auth_file }}
+    state=present create=yes
+    line="{{ item.username }}:{{ item.password }}"
+  with_items:
+    - {username: "{{ application_user }}", password: "{{ basic_auth_pw }}"}

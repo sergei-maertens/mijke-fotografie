@@ -4,28 +4,5 @@
   file: path=/var/log/nginx/{{ prefix }} state=directory
   remote_user: root
 
-- name: Create the basic auth password file
-  lineinfile:
-    dest={{ basic_auth_file }}
-    state=present create=yes
-    line="{{ item.username }}:{{ item.password }}"
-  with_items:
-    - {username: "{{ application_user }}", password: "{{ basic_auth_pw }}"}
-
-- name: Create the nginx vhost
-  template: src=vhost.j2
-            dest=/etc/nginx/sites-available/{{ prefix }}.conf
-            owner={{ application_user }}
-            group={{ application_user }}
-            mode=0644
-  remote_user: root
-  notify: reload nginx
-
-- name: Enable the virtual host
-  file: src=/etc/nginx/sites-available/{{ prefix }}.conf
-        dest=/etc/nginx/sites-enabled/{{ prefix }}.conf
-        owner={{ application_user }}
-        group={{ application_user }}
-        state=link
-  remote_user: root
-  notify: reload nginx
+# - include: basic_auth.yml
+- include: vhost.yml
