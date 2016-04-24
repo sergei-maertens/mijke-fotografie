@@ -1,0 +1,19 @@
+---
+
+- name: Create group for user
+  group: name="{{ item }}" state=present
+  with_items: "{{ pub_key_users }}"
+
+- name: Create staff users that can log in
+  user: name={{ item }} group=staff groups={{ item }},sudo shell="/bin/bash"
+  with_items: "{{ pub_key_users }}"
+
+- name: Copy staff public keys to authorized_keys for generic user ('maykin')
+  authorized_key: user={{ application_user }}
+                  key="{{ lookup('file', 'public_keys/' + item + '.pub') }}"
+  with_items: "{{ pub_key_users }}"
+
+- name: Copy staff public keys to authorized_keys for each user separately
+  authorized_key: user={{ item }}
+                  key="{{ lookup('file', 'public_keys/' + item + '.pub') }}"
+  with_items: "{{ pub_key_users }}"

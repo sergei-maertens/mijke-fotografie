@@ -1,0 +1,17 @@
+repository: git@github.com:sergei-maertens/mijke-fotografie.git
+
+target_env: "{{ target|default('staging') }}"
+release: "{{ release_tag|default('master') }}"
+
+application_user: "mijke"
+project_name: "mijke"
+
+prefix: "{{ project_name + '_' + target_env }}"
+project_home: "/srv/sites/{{ prefix }}/"
+venv: "/srv/envs/{{ prefix }}/"
+basic_auth_file: "/home/{{ application_user }}/auth/{{ prefix }}"
+
+settings_module: mijke.conf.settings.{{ target_env }}
+
+pub_key_users:
+    - sergei

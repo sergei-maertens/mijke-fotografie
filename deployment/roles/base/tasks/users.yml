@@ -1,0 +1,14 @@
+---
+# Create application user
+
+- name: Create the application user group
+  group: name="{{ application_user }}" state=present
+
+- name: Create the application user
+  user: name={{ application_user }}
+        group={{ application_user }}
+        shell=/bin/bash
+        password={{ crypted_password }}
+
+- name: Add the web-user to the application group
+  user: name=www-data groups={{ application_user }} append=yes

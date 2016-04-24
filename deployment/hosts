@@ -1,0 +1,8 @@
+[staging]
+mijke.regex-it.nl
+
+[production]
+mijke.regex-it.nl
+
+[localhost]
+localhost

@@ -1,0 +1,12 @@
+---
+
+- name: Update the application to the latest version
+  hosts: "{{ target|default('staging') }}"
+  remote_user: sourcething
+  roles:
+    - env
+    - npm
+    - gulp
+    - django
+    - supervisor
+    - nginx

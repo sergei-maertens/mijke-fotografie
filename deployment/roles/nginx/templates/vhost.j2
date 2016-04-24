@@ -1,0 +1,73 @@
+upstream {{ prefix }}_django {
+    server 127.0.0.1:{{ uwsgi_port }};
+}
+
+# redirect non-ssl to ssl
+server {
+    listen 80;
+    server_name {{ hostnames|join(' ') }};
+    return 301 https://{{ hostnames[0] }}$request_uri;
+}
+
+
+# ssl
+server {
+    listen       443;
+    server_name  {{ hostnames|join(' ') }};
+    error_log /var/log/nginx/{{ prefix }}/error.log warn;
+    access_log  /var/log/nginx/{{ prefix }}/access.log main;
+
+    charset utf-8;
+    root {{ root }};
+
+    ssl on;
+    ssl_certificate /etc/ssl/certs/{{ project_name }}.crt;
+    ssl_certificate_key /etc/ssl/private/wildcard.{{ project_name }}.key;
+    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4 ";
+    add_header Strict-Transport-Security "max-age=36000; includeSubdomains; preload";
+
+    set $maintenance off;
+    if (-f $document_root/maintenance.html ) {
+        set $maintenance on;
+    }
+    if ($remote_addr = "{{ home_ip }}") {
+        set $maintenance off;
+    }
+    if ($maintenance = on) {
+        return 503;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location / {
+        uwsgi_pass {{ prefix }}_django;
+        include uwsgi_params;
+    }
+
+    location /static/ {
+        expires max;
+        access_log  /var/log/nginx/static.{{ prefix }}.access.log;
+    }
+
+    location /media/ {
+        expires 30d;
+        access_log  /var/log/nginx/media.{{ prefix }}.access.log;
+    }
+
+    location /protected {
+        internal;
+        access_log  /var/log/nginx/private.{{ prefix }}.access.log;
+        alias {{ root }}private_media;
+    }
+
+    error_page 503 @maintenance;
+    location @maintenance {
+        rewrite ^(.*)$ /maintenance.html break;
+        internal;
+    }
+}
