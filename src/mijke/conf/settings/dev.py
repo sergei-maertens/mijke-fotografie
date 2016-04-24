@@ -7,7 +7,7 @@ from .base import *
 DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
-WSGI_APPLICATION = 'mijke.wsgi.wsgi_development.application'
+WSGI_APPLICATION = 'mijke.wsgi.wsgi.application'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ENVIRONMENT = 'development'
 

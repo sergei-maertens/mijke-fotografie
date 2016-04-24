@@ -5,7 +5,7 @@ from django.contrib.messages import constants as message_constants
 from django.utils.translation import ugettext_lazy as _
 
 # Automatically figure out the ROOT_DIR and PROJECT_DIR.
-path = Path(__file__)
+path = Path(__file__).absolute()
 DJANGO_PROJECT_DIR = path.parent.parent.parent
 ROOT_DIR = DJANGO_PROJECT_DIR.parent.parent
 

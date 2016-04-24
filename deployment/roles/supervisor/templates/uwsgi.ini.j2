@@ -1,7 +1,7 @@
 [uwsgi]
-chdir = {{ project_home }}/src
+chdir = {{ project_home }}src
 socket = 127.0.0.1:{{ uwsgi_port }}
-wsgi-file = {{ project_home }}/src/{{ project_name }}/wsgi/wsgi.py
+wsgi-file = {{ project_home }}src/{{ project_name }}/wsgi/wsgi.py
 master = true
 cheaper-algo = spare
 cheaper = 2
